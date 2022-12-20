@@ -1,32 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react'
+import Question from './Components/Question'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [quizState, setQuizState] = React.useState(0) //0 no quiz, 1 quiz running, 2 show answers
+  const [answers, setAnswers] = React.useState([])
+  const [answerKey, setAnswerKey] = React.useState([])
+
+  React.useEffect(() => {
+    async function getQuestions() {
+        const res = await fetch("https://opentdb.com/api.php?amount=10")
+        const data = await res.json()
+        const apiResponse = JSON.stringify(data.response_code)
+        const stringData = JSON.stringify(data.results)
+        //setAllMemes(data.data.memes)
+
+        console.log(`getQuestions: data.response_code = ${apiResponse}, data.results = ${stringData}`)
+    }
+    getQuestions()
+}, [])
+
+function checkAnswers() {
+
+}
+
+function startQuiz() {
+  console.log("startQuiz")
+  setQuizState(1)
+}
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='start-screen'>
+        <button onClick={startQuiz}>Start quiz</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {quizState !== 0 && <div className='quiz-screen'>
+        <Question />
+        <button onClick={checkAnswers}>Check Answers</button>
+      </div>}
     </div>
   )
 }
