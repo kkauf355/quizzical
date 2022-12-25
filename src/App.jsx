@@ -131,12 +131,13 @@ function App() {
       {quiz.step !== 0 && 
       <div className='quiz-screen flex'>
         {questionElements}
-        {quiz.step === 2 && 
-        <h3 className='grade'>{quiz.grade * 100} %</h3>}
         {quiz.step === 1 &&
         <button onClick={checkAnswers} className='check-button button'>Check Answers</button>}
         {quiz.step === 2 &&
-        <button onClick={newQuiz} className='new-game-button button'>New Game</button>}
+        <div className='footer flex'>
+          <h3 className='grade'>{quiz.grade * 100} %</h3>
+          <button onClick={newQuiz} className='new-game-button button'>New Game</button>
+        </div>}
       </div>}
     </div>
   )
