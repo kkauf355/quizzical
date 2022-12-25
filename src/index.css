@@ -85,22 +85,27 @@ input {
 }
 
 .radio-button {
-    border-radius: 5px;
+    border: 0.771045px solid #4D5B9E;
+    border-radius: 7.71045px;
+    color: #293264;
     font-family: 'Inter', sans-serif;
     padding: .25rem 1rem .25rem 1rem;
     min-width: 2rem;
 }
 
 .radio-blue {
+    border: none;
     background-color: lightblue;
 }
 
 .radio-green {
-    background-color: lightgreen;
+    border: none;
+    background-color: #94D7A2;
 }
 
 .radio-red {
-    background-color: lightcoral;
+    border: none;
+    background-color: #F8BCBC;
 }
 
 .check-button {
