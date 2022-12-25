@@ -58,8 +58,10 @@ function App() {
 
         //console.log(`getQuestions: data.results = ${JSON.stringify(dataResults)}`)
     }
-    getQuestions()
-  }, [])
+    if (quiz.step === 0) {
+      getQuestions()
+    }
+  }, [quiz.step])
 
   function createQuestions(data) {
     const newQuestions = []
@@ -117,7 +119,7 @@ function App() {
   }
 
   function newQuiz() {
-    setQuestions(generateQuiz())
+    setQuiz(generateQuiz())
   }
 
   return (
