@@ -6,13 +6,18 @@ function Question(props) {
     //console.log(`props = ${JSON.stringify(props)}`)
 
     const radioElements = allAnswers.map((ans, i)=>{
-        let classList = ""
+        let classList = "radio-button"
+        if (!props.showAnswers) {
+            if (ans === props.chosenAnswer) {
+                classList += " radio-blue"
+            }
+        }
         if (props.showAnswers) { //quiz.step === 2
             if (ans === props.correctAnswer) {  //answer is the correct answer
-                classList += "radio-green"
+                classList += " radio-green"
             }
             if (ans === props.chosenAnswer && props.chosenAnswer !== props.correctAnswer) { //checked and answer is incorrect
-                classList += "radio-red"
+                classList += " radio-red"
             }
         }
 
@@ -45,9 +50,9 @@ function Question(props) {
     }
 
     return (
-        <section>
-            <h2>{props.question}</h2>
-            <div className='answer-section'>
+        <section className='question-block'>
+            <h2 className='question'>{props.question}</h2>
+            <div className='answer-section flex'>
                 {radioElements} 
             </div>
         </section>

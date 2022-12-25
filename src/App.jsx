@@ -116,15 +116,27 @@ function App() {
     })
   }
 
+  function newQuiz() {
+    setQuestions(generateQuiz())
+  }
+
   return (
-    <div className="App">
-      <div className='start-screen'>
-        {quiz.step === 0 && <button onClick={startQuiz}>Start quiz</button>}
-      </div>
-      {quiz.step !== 0 && <div className='quiz-screen'>
+    <div className="App flex">
+      {quiz.step === 0 && 
+      <div className='start-screen flex'>
+        <h1 className='title'>Quizzical</h1>
+        <p className='welcome-message'>Probably should include some text about how to play the game here. Or maybe to have fun or something.</p>
+        <button onClick={startQuiz} className='start-button button'>Start quiz</button>
+      </div>}
+      {quiz.step !== 0 && 
+      <div className='quiz-screen flex'>
         {questionElements}
-        {quiz.step === 2 && <h3 className='grade'>{quiz.grade * 100} %</h3>}
-        <button onClick={checkAnswers}>Check Answers</button>
+        {quiz.step === 2 && 
+        <h3 className='grade'>{quiz.grade * 100} %</h3>}
+        {quiz.step === 1 &&
+        <button onClick={checkAnswers} className='check-button button'>Check Answers</button>}
+        {quiz.step === 2 &&
+        <button onClick={newQuiz} className='new-game-button button'>New Game</button>}
       </div>}
     </div>
   )
