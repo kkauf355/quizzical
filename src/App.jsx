@@ -3,7 +3,6 @@ import Question from './Components/Question'
 
 function App() {
   const [quiz, setQuiz] = React.useState(generateQuiz()) 
-  //const [answers, setAnswers] = React.useState(["","","","",""])
   const [questions, setQuestions] = React.useState([])
 
   function generateQuiz() {
@@ -17,7 +16,6 @@ function App() {
   }
 
   const questionElements = questions.map((q, i) => {
-    //console.log(`q = ${q} :: what is q's type? ${typeof q}`)
     return (
       <Question 
         key={q.question_id}
@@ -26,6 +24,7 @@ function App() {
         correctAnswer={q.correct_answer}
         incorrectAnswers={q.incorrect_answers}
         chosenAnswer={q.chosen_answer}
+        showAnswers={quiz.step === 2}
 
         setQuestions={setQuestions}
       />
@@ -89,7 +88,7 @@ function App() {
     let incorrect = 0
     let calcGrade = 0
     const correctArray = []
-    //for each
+
     questions.forEach(question => {
       if (question.correct_answer === question.chosen_answer) {
         correct++
@@ -101,17 +100,17 @@ function App() {
       }
     })
 
-    calcGrade = correct / incorrect
+    calcGrade = correct / (correct + incorrect)
 
     setQuiz(prevQuiz => {
-      return {...prevQuiz, step: 2, numCorrect: correct, numIncorrect: incorrect, grade: 99, answers: correctArray}
+      return {...prevQuiz, step: 2, numCorrect: correct, numIncorrect: incorrect, grade: calcGrade, answers: correctArray}
     })
     console.log(`checkAnswers: quiz = ${JSON.stringify(quiz)}`)
   }
 
   function startQuiz() {
     console.log("startQuiz")
-    // setQuiz = 1
+
     setQuiz(prevQuiz => {
       return {...prevQuiz, step: 1}
     })
@@ -120,10 +119,11 @@ function App() {
   return (
     <div className="App">
       <div className='start-screen'>
-        <button onClick={startQuiz}>Start quiz</button>
+        {quiz.step === 0 && <button onClick={startQuiz}>Start quiz</button>}
       </div>
       {quiz.step !== 0 && <div className='quiz-screen'>
         {questionElements}
+        {quiz.step === 2 && <h3 className='grade'>{quiz.grade * 100} %</h3>}
         <button onClick={checkAnswers}>Check Answers</button>
       </div>}
     </div>
