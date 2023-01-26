@@ -127,7 +127,7 @@ function App() {
       {quiz.step === 0 && 
       <div className='start-screen flex'>
         <h1 className='title'>Quizzical</h1>
-        <p className='welcome-message'>Probably should include some text about how to play the game here. Or maybe to have fun or something.</p>
+        <p className='welcome-message'>The most exciting 5 question quiz you'll see today!</p>
         <button onClick={startQuiz} className='start-button button'>Start quiz</button>
       </div>}
       {quiz.step !== 0 && 
@@ -137,7 +137,7 @@ function App() {
         <button onClick={checkAnswers} className='check-button button'>Check Answers</button>}
         {quiz.step === 2 &&
         <div className='footer flex'>
-          <h3 className='grade'>{quiz.grade * 100} %</h3>
+          <h3 className='grade'>Your score is {quiz.grade * 100} %</h3>
           <button onClick={newQuiz} className='new-game-button button'>New Game</button>
         </div>}
       </div>}
